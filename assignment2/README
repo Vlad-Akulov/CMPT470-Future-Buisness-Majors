@@ -1,3 +1,14 @@
-##Repo to analyse here
+## Repo to analyse here
 
 https://github.com/encode/httpx
+
+git clone https://github.com/encode/httpx
+
+## Semgrep
+
+# Download semgrep (if it tells you you have an externaly managed environemnt either make a venv or use pipx)
+python3 -m pip install semgrep
+
+# run semgrep on httpx by runing the scipt
+
+run_Semgrep.sh
