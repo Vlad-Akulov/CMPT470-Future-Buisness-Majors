@@ -1,7 +1,7 @@
 import json
 from collections import Counter
 
-with open("pylint_out.json") as f:
+with open("pylint_out.json", encoding="utf-16") as f:
     issues = json.load(f)
 
 # Total number of reported issues
