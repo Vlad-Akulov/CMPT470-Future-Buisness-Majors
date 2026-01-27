@@ -1,4 +1,4 @@
-Measure-Command {start-process pylint . -Wait}
+Measure-Command {start-process pylint . --output-format=json --recursive=y > pylint_out.json -Wait}
 
 Days              : 0
 Hours             : 0
