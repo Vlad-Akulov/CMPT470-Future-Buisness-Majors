@@ -16,6 +16,6 @@ source ./venv/bin/activate
 # run semgrep on the httpx directory to analyse only the code 
 cd ../httpx/
 rm ../Part1-Semgrep/semgrep.txt
-semgrep --config auto ./httpx/ >> ../Part1-Semgrep/semgrep.txt 2>&1
+time semgrep --config auto ./httpx/ >> ../Part1-Semgrep/semgrep.txt 2>&1
 
 
