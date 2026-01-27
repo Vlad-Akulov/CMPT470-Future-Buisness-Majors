@@ -16,3 +16,23 @@ python3 -m pip install semgrep
 ```sh
 run_Semgrep.sh
 ```
+
+# Radon
+### Download Radon
+```sh
+python3 -m pip install radon
+python3 -m radon --version
+```
+Should display `6.0.1`+
+
+### Running Radon analysis
+```sh
+cd Part3-Radon
+./run_Radon.sh
+```
+Results should output to `radon_cc.txt` and `radon_mi.txt`.
+
+
+
+
+
