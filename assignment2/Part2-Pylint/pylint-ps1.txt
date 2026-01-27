@@ -1,0 +1,13 @@
+Measure-Command {start-process pylint . -Wait}
+
+Days              : 0
+Hours             : 0
+Minutes           : 0
+Seconds           : 10
+Milliseconds      : 209
+Ticks             : 102098388
+TotalDays         : 0.000118169430555556
+TotalHours        : 0.00283606633333333
+TotalMinutes      : 0.17016398
+TotalSeconds      : 10.2098388
+TotalMilliseconds : 10209.8388

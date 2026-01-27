@@ -1,0 +1,42 @@
+###################
+From analyze.py:
+###################
+
+Total issues: 388
+
+Issues by type:
+  convention: 183
+  warning: 58
+  refactor: 126
+  error: 21
+
+Top 2 rule IDs:
+  C0116 (Missing function or method docstring): 88
+  R0913 (Too many arguments): 42
+
+###################
+
+Execution time from script:
+10.2s
+
+###################
+
+Stylistic warnings generally encompass the convention errors. While 
+these might affect readability, they aren't true issues with the code.
+Some warnings under refactor, such as duplicate-code or too-many-positional-arguments,
+may be indicitive of hard to maintain code. These issues may work for now but are a sign
+of copy pasting or other poorly enforced standards. 
+
+
+Some 'warnings' are in a similar boat. Unused parameters, unused imports, 
+and similar are not essential to maintainable code, but are worth looking at.
+Others, such as arguments-differ and unreachable, are more likely to be a problem.
+If code is unreachable, or arguments are not enforced (as python does not), it may 
+be difficult long term to understand the code. 
+
+Warnings such as error unsubscriptable-object or not-an-iterable, are almost always
+going to cause problems. Many errors are import-errors, which may be easier to catch
+and may not be as much of an issue.
+
+
+
