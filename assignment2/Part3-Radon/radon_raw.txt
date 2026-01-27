@@ -1,0 +1,288 @@
+httpx\_api.py
+    LOC: 438
+    LLOC: 42
+    SLOC: 313
+    Comments: 1
+    Single comments: 0
+    Multi: 83
+    Blank: 42
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 19%
+httpx\_auth.py
+    LOC: 348
+    LLOC: 194
+    SLOC: 212
+    Comments: 13
+    Single comments: 12
+    Multi: 50
+    Blank: 74
+    - Comment Stats
+        (C % L): 4%
+        (C % S): 6%
+        (C + M % L): 18%
+httpx\_client.py
+    LOC: 2019
+    LLOC: 604
+    SLOC: 1434
+    Comments: 44
+    Single comments: 38
+    Multi: 298
+    Blank: 249
+    - Comment Stats
+        (C % L): 2%
+        (C % S): 3%
+        (C + M % L): 17%
+httpx\_config.py
+    LOC: 248
+    LLOC: 118
+    SLOC: 182
+    Comments: 17
+    Single comments: 7
+    Multi: 20
+    Blank: 39
+    - Comment Stats
+        (C % L): 7%
+        (C % S): 9%
+        (C + M % L): 15%
+httpx\_content.py
+    LOC: 240
+    LLOC: 146
+    SLOC: 168
+    Comments: 17
+    Single comments: 15
+    Multi: 13
+    Blank: 44
+    - Comment Stats
+        (C % L): 7%
+        (C % S): 10%
+        (C + M % L): 12%
+httpx\_decoders.py
+    LOC: 393
+    LLOC: 245
+    SLOC: 242
+    Comments: 40
+    Single comments: 22
+    Multi: 48
+    Blank: 81
+    - Comment Stats
+        (C % L): 10%
+        (C % S): 17%
+        (C + M % L): 22%
+httpx\_exceptions.py
+    LOC: 377
+    LLOC: 109
+    SLOC: 122
+    Comments: 15
+    Single comments: 14
+    Multi: 142
+    Blank: 99
+    - Comment Stats
+        (C % L): 4%
+        (C % S): 12%
+        (C + M % L): 42%
+httpx\_main.py
+    LOC: 506
+    LLOC: 219
+    SLOC: 454
+    Comments: 11
+    Single comments: 0
+    Multi: 4
+    Blank: 48
+    - Comment Stats
+        (C % L): 2%
+        (C % S): 2%
+        (C + M % L): 3%
+httpx\_models.py
+    LOC: 1277
+    LLOC: 736
+    SLOC: 858
+    Comments: 61
+    Single comments: 46
+    Multi: 202
+    Blank: 171
+    - Comment Stats
+        (C % L): 5%
+        (C % S): 7%
+        (C + M % L): 21%
+httpx\_multipart.py
+    LOC: 300
+    LLOC: 180
+    SLOC: 207
+    Comments: 19
+    Single comments: 15
+    Multi: 20
+    Blank: 58
+    - Comment Stats
+        (C % L): 6%
+        (C % S): 9%
+        (C + M % L): 13%
+httpx\_status_codes.py
+    LOC: 162
+    LLOC: 106
+    SLOC: 99
+    Comments: 8
+    Single comments: 6
+    Multi: 34
+    Blank: 23
+    - Comment Stats
+        (C % L): 5%
+        (C % S): 8%
+        (C + M % L): 26%
+httpx\_types.py
+    LOC: 114
+    LLOC: 38
+    SLOC: 86
+    Comments: 13
+    Single comments: 0
+    Multi: 7
+    Blank: 21
+    - Comment Stats
+        (C % L): 11%
+        (C % S): 15%
+        (C + M % L): 18%
+httpx\_urlparse.py
+    LOC: 527
+    LLOC: 217
+    SLOC: 306
+    Comments: 104
+    Single comments: 100
+    Multi: 35
+    Blank: 86
+    - Comment Stats
+        (C % L): 20%
+        (C % S): 34%
+        (C + M % L): 26%
+httpx\_urls.py
+    LOC: 641
+    LLOC: 242
+    SLOC: 252
+    Comments: 23
+    Single comments: 22
+    Multi: 236
+    Blank: 131
+    - Comment Stats
+        (C % L): 4%
+        (C % S): 9%
+        (C + M % L): 40%
+httpx\_utils.py
+    LOC: 242
+    LLOC: 123
+    SLOC: 123
+    Comments: 30
+    Single comments: 30
+    Multi: 47
+    Blank: 42
+    - Comment Stats
+        (C % L): 12%
+        (C % S): 24%
+        (C + M % L): 32%
+httpx\__init__.py
+    LOC: 106
+    LLOC: 24
+    SLOC: 99
+    Comments: 3
+    Single comments: 0
+    Multi: 0
+    Blank: 7
+    - Comment Stats
+        (C % L): 3%
+        (C % S): 3%
+        (C + M % L): 3%
+httpx\__version__.py
+    LOC: 3
+    LLOC: 3
+    SLOC: 3
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 0
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+httpx\_transports\asgi.py
+    LOC: 187
+    LLOC: 95
+    SLOC: 116
+    Comments: 9
+    Single comments: 6
+    Multi: 19
+    Blank: 46
+    - Comment Stats
+        (C % L): 5%
+        (C % S): 8%
+        (C + M % L): 15%
+httpx\_transports\base.py
+    LOC: 86
+    LLOC: 26
+    SLOC: 42
+    Comments: 2
+    Single comments: 0
+    Multi: 23
+    Blank: 21
+    - Comment Stats
+        (C % L): 2%
+        (C % S): 5%
+        (C + M % L): 29%
+httpx\_transports\default.py
+    LOC: 406
+    LLOC: 128
+    SLOC: 329
+    Comments: 14
+    Single comments: 3
+    Multi: 19
+    Blank: 55
+    - Comment Stats
+        (C % L): 3%
+        (C % S): 4%
+        (C + M % L): 8%
+httpx\_transports\mock.py
+    LOC: 43
+    LLOC: 22
+    SLOC: 28
+    Comments: 4
+    Single comments: 3
+    Multi: 0
+    Blank: 12
+    - Comment Stats
+        (C % L): 9%
+        (C % S): 14%
+        (C + M % L): 9%
+httpx\_transports\wsgi.py
+    LOC: 149
+    LLOC: 68
+    SLOC: 94
+    Comments: 2
+    Single comments: 0
+    Multi: 26
+    Blank: 29
+    - Comment Stats
+        (C % L): 1%
+        (C % S): 2%
+        (C + M % L): 19%
+httpx\_transports\__init__.py
+    LOC: 15
+    LLOC: 6
+    SLOC: 14
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 1
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+** Total **
+    LOC: 8827
+    LLOC: 3691
+    SLOC: 5783
+    Comments: 450
+    Single comments: 339
+    Multi: 1326
+    Blank: 1379
+    - Comment Stats
+        (C % L): 5%
+        (C % S): 8%
+        (C + M % L): 20%
