@@ -9,7 +9,7 @@ SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 # cd into it
 cd "$SCRIPT_DIR" || exit 1
 
-# load semgrep into path 
+# load semgrep into path if its in venv
 source ./venv/bin/activate
 
 
