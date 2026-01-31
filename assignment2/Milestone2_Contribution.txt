@@ -1,0 +1,14 @@
+Team Name: Future Business Majors
+Milestone: Assessing Software Quality Using Static Analysis
+Contribution of each member (%):
+	Kylen Morris: 25%
+	Darian Rowat: 25%
+	Rylan Curtis: 10%
+	Vlad Akulov: 30%
+	Kyran McKnight-Woods: 10% 
+Usage of AI tools by each member:
+	Kylen Morris: GitHub Copilot, Python scripts for parsing results files for better summarization of analysis information given by tools.
+	Darian Rowat: None
+	Rylan Curtis: None
+	Vlad Akulov: None
+	Kyran McKnight-Woods: None
