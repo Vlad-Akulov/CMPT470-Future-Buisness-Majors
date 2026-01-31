@@ -15,7 +15,19 @@ source ./venv/bin/activate
 
 # run semgrep on the httpx directory to analyse only the code 
 cd ../httpx/
-rm ../Part1-Semgrep/semgrep.txt
-time semgrep --config auto ./httpx/ >> ../Part1-Semgrep/semgrep.txt 2>&1
+rm ../Part1-Semgrep/semgrep.json
+time semgrep --config auto ./httpx/ \
+  --json \
+  --output ../Part1-Semgrep/semgrep.json \
+  --no-git-ignore \
+  > ../Part1-Semgrep/semgrep_run.txt 2>&1
 
 
+
+# pretty format for inspection
+if command -v jq >/dev/null 2>&1; then
+  jq . ../Part1-Semgrep/semgrep.json > ../Part1-Semgrep/semgrep_pretty.json
+else
+  echo "jq not found — skipping pretty JSON formatting."
+  echo "Install with: sudo apt install jq"
+fi

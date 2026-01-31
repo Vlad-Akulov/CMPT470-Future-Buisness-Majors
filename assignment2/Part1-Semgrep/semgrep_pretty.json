@@ -1,0 +1,240 @@
+{
+  "version": "1.150.0",
+  "results": [
+    {
+      "check_id": "python.lang.security.dangerous-globals-use.dangerous-globals-use",
+      "path": "httpx/__init__.py",
+      "start": {
+        "line": 106,
+        "col": 17,
+        "offset": 2142
+      },
+      "end": {
+        "line": 106,
+        "col": 33,
+        "offset": 2158
+      },
+      "extra": {
+        "message": "Found non static data as an index to 'globals()'. This is extremely dangerous because it allows an attacker to execute arbitrary code on the system. Refactor your code not to use 'globals()'.",
+        "metadata": {
+          "cwe": [
+            "CWE-96: Improper Neutralization of Directives in Statically Saved Code ('Static Code Injection')"
+          ],
+          "owasp": [
+            "A03:2021 - Injection",
+            "A05:2025 - Injection"
+          ],
+          "references": [
+            "https://github.com/mpirnat/lets-be-bad-guys/blob/d92768fb3ade32956abd53bd6bb06e19d634a084/badguys/vulnerable/views.py#L181-L186"
+          ],
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Code Injection"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.dangerous-globals-use.dangerous-globals-use",
+          "shortlink": "https://sg.run/jNzn"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      "path": "httpx/_auth.py",
+      "start": {
+        "line": 309,
+        "col": 16,
+        "offset": 10636
+      },
+      "end": {
+        "line": 309,
+        "col": 31,
+        "offset": 10651
+      },
+      "extra": {
+        "message": "Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+        "fix": "hashlib.sha256(s)",
+        "metadata": {
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/d5f8fa0d89d7b11442fc6ec80ca42953974354c8/bandit/blacklists/calls.py#L59",
+          "cwe": [
+            "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+          ],
+          "owasp": [
+            "A03:2017 - Sensitive Data Exposure",
+            "A02:2021 - Cryptographic Failures",
+            "A04:2025 - Cryptographic Failures"
+          ],
+          "bandit-code": "B303",
+          "asvs": {
+            "control_id": "6.2.2 Insecure Custom Algorithm",
+            "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x14-V6-Cryptography.md#v62-algorithms",
+            "section": "V6 Stored Cryptography Verification Requirements",
+            "version": "4"
+          },
+          "references": [
+            "https://www.schneier.com/blog/archives/2012/10/when_will_we_se.html",
+            "https://www.trendmicro.com/vinfo/us/security/news/vulnerabilities-and-exploits/sha-1-collision-signals-the-end-of-the-algorithm-s-viability",
+            "http://2012.sharcs.org/slides/stevens.pdf",
+            "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html"
+          ],
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "subcategory": [
+            "vuln"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "MEDIUM",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Cryptographic Issues"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+          "shortlink": "https://sg.run/ydYx"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    }
+  ],
+  "errors": [],
+  "paths": {
+    "scanned": [
+      "httpx/__init__.py",
+      "httpx/__version__.py",
+      "httpx/_api.py",
+      "httpx/_auth.py",
+      "httpx/_client.py",
+      "httpx/_config.py",
+      "httpx/_content.py",
+      "httpx/_decoders.py",
+      "httpx/_exceptions.py",
+      "httpx/_main.py",
+      "httpx/_models.py",
+      "httpx/_multipart.py",
+      "httpx/_status_codes.py",
+      "httpx/_transports/__init__.py",
+      "httpx/_transports/asgi.py",
+      "httpx/_transports/base.py",
+      "httpx/_transports/default.py",
+      "httpx/_transports/mock.py",
+      "httpx/_transports/wsgi.py",
+      "httpx/_types.py",
+      "httpx/_urlparse.py",
+      "httpx/_urls.py",
+      "httpx/_utils.py",
+      "httpx/py.typed",
+      "httpx/pylint_out.json"
+    ]
+  },
+  "time": {
+    "rules": [],
+    "rules_parse_time": 0.881415843963623,
+    "profiling_times": {
+      "config_time": 1.5249745845794678,
+      "core_time": 3.515118360519409,
+      "ignores_time": 0.0010731220245361328,
+      "total_time": 5.096190452575684
+    },
+    "parsing_time": {
+      "total_time": 0,
+      "per_file_time": {
+        "mean": 0,
+        "std_dev": 0
+      },
+      "very_slow_stats": {
+        "time_ratio": 0,
+        "count_ratio": 0
+      },
+      "very_slow_files": []
+    },
+    "scanning_time": {
+      "total_time": 9.56936240196228,
+      "per_file_time": {
+        "mean": 0.12931570813462542,
+        "std_dev": 0.04712406761243469
+      },
+      "very_slow_stats": {
+        "time_ratio": 0,
+        "count_ratio": 0
+      },
+      "very_slow_files": []
+    },
+    "matching_time": {
+      "total_time": 0,
+      "per_file_and_rule_time": {
+        "mean": 0,
+        "std_dev": 0
+      },
+      "very_slow_stats": {
+        "time_ratio": 0,
+        "count_ratio": 0
+      },
+      "very_slow_rules_on_files": []
+    },
+    "tainting_time": {
+      "total_time": 0,
+      "per_def_and_rule_time": {
+        "mean": 0,
+        "std_dev": 0
+      },
+      "very_slow_stats": {
+        "time_ratio": 0,
+        "count_ratio": 0
+      },
+      "very_slow_rules_on_defs": []
+    },
+    "fixpoint_timeouts": [
+      {
+        "error_type": "Fixpoint timeout",
+        "severity": "warn",
+        "message": "Fixpoint timeout while performing taint analysis at httpx/_urlparse.py:213:4 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
+        "location": {
+          "path": "httpx/_urlparse.py",
+          "start": {
+            "line": 213,
+            "col": 5,
+            "offset": 6395
+          },
+          "end": {
+            "line": 213,
+            "col": 13,
+            "offset": 6403
+          }
+        }
+      }
+    ],
+    "prefiltering": {
+      "project_level_time": 0,
+      "file_level_time": 0,
+      "rules_with_project_prefilters_ratio": 0,
+      "rules_with_file_prefilters_ratio": 0.9894008538201089,
+      "rules_selected_ratio": 0.05549830708081849,
+      "rules_matched_ratio": 0.05549830708081849
+    },
+    "targets": [],
+    "total_bytes": 0,
+    "max_memory_bytes": 1533496128
+  },
+  "engine_requested": "OSS",
+  "skipped_rules": [],
+  "profiling_results": []
+}
