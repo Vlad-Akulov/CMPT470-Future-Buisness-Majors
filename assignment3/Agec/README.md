@@ -8,101 +8,124 @@ https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6613854
 
 ### Artifact Discovery and Verification
 
-1. Find the Artifact
 
-2. Verify that the artifact corresponds to the tool described in the paper
-
-3. Record the artifact link in the excel document 📝 (under Github Repo)
-
-4. Document how the artifact was discovered (paper link, website, archive)
-
-5. Document Original Recall and/or Precision if it was included in the document 📝
+1. Ctrl + F github 
+    - Found a section that claims its being hosted at https://github.com/tos-kamiyalagec/agec 
+    - Following the link on 2026-02-02 shows a broken page dead end
+2. Article Claims the tool was applied to an open source product named ArgoUML
+    - Found it linked https://argouml.tigris.orgl/
+    - Following the link on 2026-02-02 shows a broken page dead end
+3. Google Search for the github page 
+    - We see a hit under the same authors name seems they created a seperate account named tos-kamiyalagec to host the application untill they archived it on 2018-03-07 https://github.com/tos-kamiya/agec
+    - There seems to be an update to the code and the repo seems to have moved to https://github.com/tos-kamiya/agec2/ but the only fixes seem to be documentation and semantic so we will proceed with the original repo
 
 ---
 
 
 ### Environment Setup
 
-1. Identify required operating system, runtime, and dependencies
+1. Taking a look at the repository, we see that it consists of 92% Python, 6% ASM, and 1.4% Java. This indicates a Python-based tool that operates on Java programs by compiling them to bytecode and disassembling that bytecode for analysis. The ASM files corresponding to Java bytecode disassembly.
 
-2. Follow original instructions where available
+2. Since I am on Windows 10, I created a Python (version 3.12.10) virtual environment and cloned the tool. I used my preinstalled Java SDK (Java SE 25.0.2 (build 25.0.2+10-LTS-69)) to provide the required Java-specific tools (javac and javap) needed for compilation and bytecode disassembly.
 
-3. Document environment details precisely (Both here and in the excel document 📝)
+3. I had to remove the installer configured java include directory from path to put its bin into path because javap was not included in the javainclude directory 
 
-4. If you had to fix the environment or update dependencies please mention it here
+4. With the setup out of the way we clone the above mentioned repo.
 
 ---
 
 ### Smoke Testing
 
-1. Attempt Basic execution (e.g., help command or small input)
+1. There were no provided instructions outside of a 1 time exececution so were going to do some interpolating. 
 
-2. Capture Logs and error messages (e.g. terminal output/screenshots or output files)
+2. Following the posted repo example I'm going to compile the provided ShowWeekday.java project inside of test
 
+3. Not mentioned in the instructions if I should premake the disasm dir so I will in good faith make one ```mkdir .\src\disasm```
+
+4. Now disasemble ```javap -c -p -l -constants ShowWeekdayR > ..\..\..\src\disasm\ShowWeekdayR.asm``` as shown in the project repo but were disasembling to the tool directory so its easier to run on windows without modifying path a whole bunch.
+
+5. Generate n-grams of method invocations ```gen_ngram.py -a disasm > ngrams.txt```.
+
+    - Here we see our first real issue 
+    ```
+    C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src>python gen_ngram.py -a disasm > ngrams.txt
+    Traceback (most recent call last):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\gen_ngram.py", line 478, in <module>
+        main(sys.argv)
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\gen_ngram.py", line 363, in main
+        for asm_file, sig, code, etbl, ltbl in am.get_method_code_and_tables_iter(asmdir):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\asm_manip.py", line 162, in get_method_code_and_tables_iter
+        for claz, method_sig, body, asm_file in split_into_method_iter_from_asmdir(asm_dir):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\asm_manip.py", line 159, in split_into_method_iter_from_asmdir
+        for v in split_into_method_iter(asmfile, lines):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\asm_manip.py", line 90, in split_into_method_iter
+        raise AssertionError("unexpected line: %s: %d: %s" % (asmfile, ln + 1, L))
+    AssertionError: unexpected line: disasm\ShowWeekdayR.asm: 4:
+    ```
+    - It looks like the parsing logic is expecting a hardcoded structure from an older java sdk so im going to try to downgrade my sdk
+
+6. Downgrade Java SDK from Java 25 to Java 8 which would have been the most popular/stable release in 2018
+
+7. Repeat up to step 6 with the Java 8 SDK and encounter a new error this time I had no Idea what it was and asking an LLM suggested that on Java 8 with windws redirects could be UTF-16 LE instead of UTF8 which could have been the default on the Operating system the OP was using
+
+    ```
+    Traceback (most recent call last):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\gen_ngram.py", line 478, in <module>
+        main(sys.argv)
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\gen_ngram.py", line 363, in main
+        for asm_file, sig, code, etbl, ltbl in am.get_method_code_and_tables_iter(asmdir):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\asm_manip.py", line 162, in get_method_code_and_tables_iter
+        for claz, method_sig, body, asm_file in split_into_method_iter_from_asmdir(asm_dir):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\asm_manip.py", line 158, in split_into_method_iter_from_asmdir
+        for asmfile, lines in asm_filetext_iter(asmdir):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\asm_manip.py", line 30, in asm_filetext_iter
+        lines = f.read().decode('utf-8').split('\n')
+    UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+    ```
+8. Opening the asm file in a notepad file suggests that the LLM was correct and the encoding is in fact UTF-16 LE. If you plan on reproducing this I suggest using a normal opperating system like debian. 
+
+9. Go back and regenerate the same thing again with a javap flag for utf8 
+    ```
+    javap -J-Dfile.encoding=UTF-8 -c -p -l -constants ShowWeekdayR > ..\..\..\src\disasm\ShowWeekdayR.asm
+    ```
+
+10. Checking the encoding type is now correctly utf8 we see that ....... the original error has returned even with an older version of the Java sdk 
+
+    ```
+        C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src>python gen_ngram.py -a disasm > ngrams.txt
+    Traceback (most recent call last):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\gen_ngram.py", line 478, in <module>
+        main(sys.argv)
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\gen_ngram.py", line 363, in main
+        for asm_file, sig, code, etbl, ltbl in am.get_method_code_and_tables_iter(asmdir):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\asm_manip.py", line 162, in get_method_code_and_tables_iter
+        for claz, method_sig, body, asm_file in split_into_method_iter_from_asmdir(asm_dir):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\asm_manip.py", line 159, in split_into_method_iter_from_asmdir
+        for v in split_into_method_iter(asmfile, lines):
+    File "C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src\asm_manip.py", line 90, in split_into_method_iter
+        raise AssertionError("unexpected line: %s: %d: %s" % (asmfile, ln + 1, L))
+    AssertionError: unexpected line: disasm\ShowWeekdayR.asm: 4:
+    ```
+
+11. This is about as far as my good faith extends we are marking this TES-C as it fails mid execution
 ---
 
 ### Benchmarking
 
-1. Execute the tool on a compatible provided benchmark. (Whichever applies best. NOTE: If your paper specifies a specific testbench not already defined then )
-
-2. Document the tool you used and clone type in the excel document 📝
-
-2. Use default or paper-specified settings 
-
-3. Document the settings you used in the excel document 📝
-
-4. Do not modify algorithms or datasets if it dosent work put in a bit of effort to resolve the issue but dont change source code or toolchain configuration. 
-
-5. As specified by the lab manual: 
-**If you are unsure whether an action is allowed, document the issue and stop.**
-
-##### Allowed
-    - Searching author websites and archival sources
-    - Fixing minor build or dependency issues
-    - Updating deprecated libraries
-    - Using containers or virtual machines
-
-##### Not Allowed
-    - Rewriting detection logic
-    - Changing algorithms or evaluation design
-    - Tuning parameters beyond what is described in the paper
-    - Substituting datasets
-
-
-
-| If you want to evaluate… | Then use this benchmark |
-|---|---|
-| Cross-language clone detection (any clone type) | GoogleCodeJam (cross-language) |
-| Cross-language clone detection (modern / LLM-oriented) | GPTCloneBench (cross-language section) |
-| Java clone detection only | BigCloneBench |
-| Type-1 clones (exact copies, Java) | BigCloneBench |
-| Type-2 clones (renamed identifiers, Java) | BigCloneBench |
-| Type-3 clones (edited structure, Java) | BigCloneBench |
-| Semantic clone detection | SemanticCloneBench |
-| Semantic clones in Java, C, C#, Python | SemanticCloneBench |
-| Semantic clones with LLM-generated variants | GPTCloneBench |
-| Semantic clones in Java, C, C#, Python (LLM-focused) | GPTCloneBench |
+CLONE TYPE: Semantic Code-Clone detection for Java so we would be using SemanticCloneBench had the tool worked properly
 
 ---
 
 ### Result Assessment
 
-1. Compute precision and recall only if supported
+The paper did not provide any precision/recall metrics which is fine since this is a semantic tool and typically dosent have objective precision/recall metrics.
 
-2. Document Precision and recall in the excel document 📝
+Unfortunatley since we could not get the tool working we cannot comment on the results.
 
-3. Extract original metrics from the paper
-
-4. Compare reproduced results with reported results and document it in the excel document 📝 (make sure you also document it here in a bit more depth)
-
-5. Give it a TES Grade and document it in the excel document 📝
 
 | TES Grade | Description |
 |---|---|
-| **TES-A (Executable)** | The tool executed successfully with minimal effort following the authors’ original instructions. No non-trivial intervention was required beyond routine environment setup, and execution produced the expected outputs on the target benchmark(s). |
-| **TES-B (Executable with Intervention)** | The tool successfully completed the full intended workflow and produced complete outputs only after intervention, such as fixing compatibility issues, recovering missing dependencies, or correcting documentation inconsistencies. |
 | **TES-C (Partially Executable)** | The tool did not complete the full intended workflow, even after substantial effort. This includes cases where the tool ran only basic commands or smoke tests, failed on realistic benchmarks, crashed mid-execution, or produced incomplete or unreliable outputs. |
-| **TES-D (Non-Executable)** | The tool could not be executed despite best-effort attempts. This includes cases where no official artifact was found, the tool failed irrecoverably during build or execution, or critical components were missing with no feasible path to recovery. |
-| **TES-E (Executed with Divergent Results)** | The tool executed and produced outputs, but the results deviated substantially from those reported in the original paper, either quantitatively (e.g., lower precision or recall) or qualitatively. |
 
 ---
