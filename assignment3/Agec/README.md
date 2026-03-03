@@ -121,7 +121,7 @@ CLONE TYPE: Semantic Code-Clone detection for Java so we would be using Semantic
 
 The paper did not provide any precision/recall metrics which is fine since this is a semantic tool and typically dosent have objective precision/recall metrics.
 
-Unfortunatley since we could not get the tool working we cannot comment on the results.
+Unfortunately since we could not get the tool working we cannot comment on the results.
 
 
 | TES Grade | Description |
