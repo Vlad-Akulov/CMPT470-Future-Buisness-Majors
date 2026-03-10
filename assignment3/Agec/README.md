@@ -38,13 +38,16 @@ https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6613854
 
 1. There were no provided instructions outside of a 1 time exececution so were going to do some interpolating. 
 
+
 2. Following the posted repo example I'm going to compile the provided ShowWeekday.java project inside of test
 
-3. Not mentioned in the instructions if I should premake the disasm dir so I will in good faith make one ```mkdir .\src\disasm```
+3. Not mentioned in the instructions if I should premake the disasm dir so I will in good faith make one ```mkdir .\src\disasm``` and cd into it
 
-4. Now disasemble ```javap -c -p -l -constants ShowWeekdayR > ..\..\..\src\disasm\ShowWeekdayR.asm``` as shown in the project repo but were disasembling to the tool directory so its easier to run on windows without modifying path a whole bunch.
+4. cd into test/samplecode/src
 
-5. Generate n-grams of method invocations ```gen_ngram.py -a disasm > ngrams.txt```.
+5. Now disasemble ```javap -c -p -l -constants ShowWeekdayR > ..\..\..\src\disasm\ShowWeekdayR.asm``` as shown in the project repo but were disasembling to the tool directory so its easier to run on windows without modifying path a whole bunch.
+
+6. Generate n-grams of method invocations ```gen_ngram.py -a disasm > ngrams.txt```.
 
     - Here we see our first real issue 
     ```
@@ -64,9 +67,9 @@ https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6613854
     ```
     - It looks like the parsing logic is expecting a hardcoded structure from an older java sdk so im going to try to downgrade my sdk
 
-6. Downgrade Java SDK from Java 25 to Java 8 which would have been the most popular/stable release in 2018
+7. Downgrade Java SDK from Java 25 to Java 8 which would have been the most popular/stable release in 2018
 
-7. Repeat up to step 6 with the Java 8 SDK and encounter a new error this time I had no Idea what it was and asking an LLM suggested that on Java 8 with windws redirects could be UTF-16 LE instead of UTF8 which could have been the default on the Operating system the OP was using
+8. Repeat up to step 6 with the Java 8 SDK and encounter a new error this time I had no Idea what it was and asking an LLM suggested that on Java 8 with windws redirects could be UTF-16 LE instead of UTF8 which could have been the default on the Operating system the OP was using
 
     ```
     Traceback (most recent call last):
@@ -83,14 +86,14 @@ https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6613854
     UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
 
     ```
-8. Opening the asm file in a notepad file suggests that the LLM was correct and the encoding is in fact UTF-16 LE. If you plan on reproducing this I suggest using a normal opperating system like debian. 
+9. Opening the asm file in a notepad file suggests that the LLM was correct and the encoding is in fact UTF-16 LE. If you plan on reproducing this I suggest using a normal opperating system like debian. 
 
-9. Go back and regenerate the same thing again with a javap flag for utf8 
+10. Go back and regenerate the same thing again with a javap flag for utf8 
     ```
     javap -J-Dfile.encoding=UTF-8 -c -p -l -constants ShowWeekdayR > ..\..\..\src\disasm\ShowWeekdayR.asm
     ```
 
-10. Checking the encoding type is now correctly utf8 we see that ....... the original error has returned even with an older version of the Java sdk 
+11. Checking the encoding type is now correctly utf8 we see that ....... the original error has returned even with an older version of the Java sdk 
 
     ```
         C:\Users\gostg\Documents\vscode\470\CMPT470-Future-Buisness-Majors\assignment3\Agec\agec\src>python gen_ngram.py -a disasm > ngrams.txt
@@ -108,8 +111,64 @@ https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6613854
     AssertionError: unexpected line: disasm\ShowWeekdayR.asm: 4:
     ```
 
-11. This is about as far as my good faith extends we are marking this TES-C as it fails mid execution
+12. This is about as far as my good faith extends we are marking this TES-C as it fails mid execution
+
+
+13. As a brief return to this I will atempt this project once more but this time using debian which may fix some issues related to file parsing
+
+14. followed all previous steps and installed Open JDK-17 through apt  
+
+15. as we get to the step where we run get_ngram we find that this is a python2 script and debian 13 does not ship with python2 or have it in its package manager so we will be using pyenv to create a python2 environemnt to run this script in 
+
+
+```
+- Build dependencies 
+
+sudo apt install build-essential curl git libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev libffi-dev libncursesw5-dev \
+xz-utils tk-dev
+
+- Pyenv install 
+curl https://pyenv.run | bash
+
+- Load it into path only for this terminal  so we dont polute the env 
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+
+- Confirm it isntalled properly
+eval "$(pyenv init -)"
+
+- Install python 2 (This takes a while)
+pyenv install 2.7.18
+pyenv local 2.7.18
+
+```
+
+16. Run the gen_ngram.py file 
+```
+python gen_ngram.py -a disam > ngrams.txt
+```
+
+17. Run det clone this time runs without issue 
+```
+det_clone.py ngrams.txt > clone-indices-md.txt
+```
+
+18. Run mmd_clone as specified in the repo 
+```
+mmd_clone.py clone-indices-md.txt > clone-indices.txt
+```
+
+19. Run tosl_clone as specified in the repo 
+```
+tosl_clone.py -a disam clone-indices.txt > clone-linenums.txt
+```
+
 ---
+
+
 
 ### Benchmarking
 
