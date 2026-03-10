@@ -9,6 +9,8 @@ https://huggingface.co/HuggingFaceH4/starchat-beta
 
 1. Find the Artifact
 
+https://huggingface.co/HuggingFaceH4/starchat-beta
+
 2. Verify that the artifact corresponds to the tool described in the paper
 
 3. Record the artifact link in the excel document 📝 (under Github Repo)
@@ -17,12 +19,16 @@ https://huggingface.co/HuggingFaceH4/starchat-beta
 
 5. Document Original Recall and/or Precision if it was included in the document 📝
 
+The original paper did not include code clone detection benchmarks to compare with.
+
 ---
 
 
 ### Environment Setup
 
 1. Identify required operating system, runtime, and dependencies
+
+I used Ubuntu 22.04 through WSL in Windows 11. I used PyTorch cu130 in order to run on newer blackwell NVIDIA GPU, transformers for tokenizer and model loading, sklearn for metrics calculations, datasets for the load_dataset tool, and random to randomly select a portion of the dataset.
 
 2. Follow original instructions where available
 
@@ -35,6 +41,30 @@ https://huggingface.co/HuggingFaceH4/starchat-beta
 ### Smoke Testing
 
 1. Attempt Basic execution (e.g., help command or small input)
+
+For a smoke test i simply loaded the starchat model and prompted it to write a python function that adds two numbers. This test worked flawlesly and took about a minute to execute.
+
+program output:
+Loading tokenizer...
+Loading model...
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 484/484 [00:33<00:00, 14.47it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Model loaded successfully
+Generating output...
+Setting `pad_token_id` to `eos_token_id`:0 for open-end generation.
+
+Generated Text:
+
+Write a Python function that adds two numbers.<|end|>
+<|assistant|>
+Here is a Python function that adds two numbers:
+
+```python
+def add_numbers(a, b):
+    return a + b
+```
+
+This function takes two arguments, `a` and `b`,
 
 2. Capture Logs and error messages (e.g. terminal output/screenshots or output files)
 
@@ -88,11 +118,18 @@ https://huggingface.co/HuggingFaceH4/starchat-beta
 
 1. Compute precision and recall only if supported
 
+For 500 pairs:
+Accuracy : 0.726
+Precision : 0.181818
+Recall : 0.24324
+
 2. Document Precision and recall in the excel document 📝
 
 3. Extract original metrics from the paper
 
 4. Compare reproduced results with reported results and document it in the excel document 📝 (make sure you also document it here in a bit more depth)
+
+The original paper did not benchmark for code clone detection. This tool is not designed for code clone detection and it's simply an LLM focussed on code generation. The original paper benchmarks for code generation and understanding.
 
 5. Give it a TES Grade and document it in the excel document 📝
 
