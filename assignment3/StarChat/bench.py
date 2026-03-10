@@ -1,5 +1,4 @@
 import torch
-import pandas as pd
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -7,12 +6,21 @@ from datasets import load_dataset
 import random
 
 MODEL_NAME = "HuggingFaceH4/starchat-beta"
-NUM_PAIRS = 300
+NUM_PAIRS = 500
+BATCH_SIZE = 3
+
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.backends.cudnn.allow_tf32 = True
 
 print("Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+tokenizer.padding_side = "left"
 
-print("Loading StarChat 16B model...")
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
+
+print("Loading StarChat model...")
+
 model = AutoModelForCausalLM.from_pretrained(
     MODEL_NAME,
     device_map="auto",
@@ -22,10 +30,8 @@ model = AutoModelForCausalLM.from_pretrained(
 model.eval()
 
 def build_prompt(code1, code2):
-    prompt = f"""
-You are a software clone detection tool.
-
-Determine if the following two Java functions implement the same functionality.
+    return f"""
+Are these two Java functions similar?
 
 Respond ONLY with:
 YES
@@ -40,32 +46,46 @@ Function B:
 
 Answer:
 """
-    return prompt
 
 
-def predict_clone(code1, code2):
+def predict_batch(prompts):
 
-    prompt = build_prompt(code1, code2)
+    inputs = tokenizer(
+        prompts,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=8192
+    ).to(model.device)
 
-    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    with torch.inference_mode():
+        outputs = model(**inputs)
 
-    with torch.no_grad():
-        output = model.generate(
-            **inputs,
-            max_new_tokens=5,
-            temperature=0.0
-        )
+    logits = outputs.logits[:, -1, :]
 
-    response = tokenizer.decode(output[0], skip_special_tokens=True)
+    yes_token = tokenizer.encode(" YES", add_special_tokens=False)[0]
+    no_token = tokenizer.encode(" NO", add_special_tokens=False)[0]
 
-    response = response.split("Answer:")[-1].strip().upper()
+    preds = []
 
-    if "YES" in response:
-        return 1
-    else:
-        return 0
+    for i in range(len(prompts)):
 
-print("[INFO] Loading BigCloneBench dataset from HuggingFace...")
+        probs = torch.softmax(logits[i, [yes_token, no_token]], dim=0)
+
+        yes_prob = probs[0].item()
+        no_prob = probs[1].item()
+
+        if yes_prob > no_prob:
+            preds.append(1)
+            print(f"Model output: YES ({yes_prob:.3f})")
+        else:
+            preds.append(0)
+            print(f"Model output: NO ({no_prob:.3f})")
+
+    return preds
+
+
+print("[INFO] Loading BigCloneBench dataset...")
 
 dataset = load_dataset(
     "google/code_x_glue_cc_clone_detection_big_clone_bench",
@@ -74,36 +94,63 @@ dataset = load_dataset(
 
 print(f"[INFO] Dataset loaded: {len(dataset)} total examples")
 
-# randomly sample the pairs we want to test
 indices = random.sample(range(len(dataset)), NUM_PAIRS)
 data_subset = [dataset[i] for i in indices]
+# clones = [x for x in dataset if x["label"] == 1]
 
-print(f"[INFO] Sampled {NUM_PAIRS} examples for benchmarking")
+# data_subset = random.sample(clones, NUM_PAIRS)
+
+print(f"[INFO] Sampled {NUM_PAIRS} examples")
 
 y_true = []
 y_pred = []
 
 print("Running benchmark...")
 
-for example in tqdm(data_subset, total=len(data_subset)):
+batch_prompts = []
+batch_labels = []
 
-    code1 = example["func1"]
-    code2 = example["func2"]
-    label = example["label"]
+pair_idx = 1
 
-    pred = predict_clone(code1, code2)
+for example in data_subset:
 
-    y_true.append(label)
-    y_pred.append(pred)
+    prompt = build_prompt(example["func1"], example["func2"])
+
+    batch_prompts.append(prompt)
+    batch_labels.append(example["label"])
+
+    if len(batch_prompts) == BATCH_SIZE:
+
+        preds = predict_batch(batch_prompts)
+
+        for p, t in zip(preds, batch_labels):
+            y_pred.append(p)
+            y_true.append(t)
+            print(f"Pair {pair_idx}: Prediction={p}  True={t}")
+            pair_idx += 1
+
+        batch_prompts = []
+        batch_labels = []
+
+
+# run remaining
+if batch_prompts:
+    preds = predict_batch(batch_prompts)
+    for p, t in zip(preds, batch_labels):
+        y_pred.append(p)
+        y_true.append(t)
+        print(f"Prediction={p}  True={t}")
+
 
 print("\nBenchmark Results")
 
 acc = accuracy_score(y_true, y_pred)
-prec = precision_score(y_true, y_pred)
-rec = recall_score(y_true, y_pred)
-f1 = f1_score(y_true, y_pred)
+prec = precision_score(y_true, y_pred, zero_division=0)
+rec = recall_score(y_true, y_pred, zero_division=0)
+f1 = f1_score(y_true, y_pred, zero_division=0)
 
 print("Accuracy :", acc)
 print("Precision:", prec)
 print("Recall   :", rec)
 print("F1 Score :", f1)
+print("Total evaluated:", len(y_true))
