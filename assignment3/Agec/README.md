@@ -217,9 +217,6 @@ The paper did not provide any precision/recall metrics which is fine since this 
 
 The sample workflow is executable on Debian with Python 2.7.18.
 
-ArgoUML reproducibility now depends on obtaining the exact 0.28.1 artifact and running the full benchmark pipeline above.
-
-
 | TES Grade | Description |
 |---|---|
 | **TES-C (Partially Executable)** | The tool did not complete the full intended workflow, even after substantial effort. This includes cases where the tool ran only basic commands or smoke tests, failed on realistic benchmarks, crashed mid-execution, or produced incomplete or unreliable outputs. |
