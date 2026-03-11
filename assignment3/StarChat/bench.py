@@ -6,11 +6,14 @@ from datasets import load_dataset
 import random
 
 MODEL_NAME = "HuggingFaceH4/starchat-beta"
+
+DATASET = "gptclonebench"   # "gptclonebench" or "gcj"
 NUM_PAIRS = 500
 BATCH_SIZE = 3
 
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
+
 
 print("Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
@@ -19,8 +22,8 @@ tokenizer.padding_side = "left"
 if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
-print("Loading StarChat model...")
 
+print("Loading StarChat model...")
 model = AutoModelForCausalLM.from_pretrained(
     MODEL_NAME,
     device_map="auto",
@@ -29,19 +32,20 @@ model = AutoModelForCausalLM.from_pretrained(
 
 model.eval()
 
+
 def build_prompt(code1, code2):
     return f"""
-Are these two Java functions similar?
+Are these two programs similar?
 
 Respond ONLY with:
 YES
 or
 NO
 
-Function A:
+Program A:
 {code1}
 
-Function B:
+Program B:
 {code2}
 
 Answer:
@@ -85,36 +89,104 @@ def predict_batch(prompts):
     return preds
 
 
-print("[INFO] Loading BigCloneBench dataset...")
+########################################
+# LOAD DATA
+########################################
 
-dataset = load_dataset(
-    "google/code_x_glue_cc_clone_detection_big_clone_bench",
-    split="test"
-)
+pairs = []
 
-print(f"[INFO] Dataset loaded: {len(dataset)} total examples")
+if DATASET == "gptclonebench":
 
-indices = random.sample(range(len(dataset)), NUM_PAIRS)
-data_subset = [dataset[i] for i in indices]
-# clones = [x for x in dataset if x["label"] == 1]
+    print("[INFO] Loading GPTCloneBench...")
 
-# data_subset = random.sample(clones, NUM_PAIRS)
+    dataset = load_dataset("Reid996/GPTCloneBench", split="All")
 
-print(f"[INFO] Sampled {NUM_PAIRS} examples")
+    print(f"[INFO] Dataset size: {len(dataset)}")
+
+    indices = random.sample(range(len(dataset)), NUM_PAIRS)
+
+    for i in indices:
+        example = dataset[i]
+
+        pairs.append({
+            "code1": example["func1"],
+            "code2": example["func2"],
+            "label": example["label"]
+        })
+
+
+elif DATASET == "gcj":
+
+    print("[INFO] Loading Google Code Jam dataset...")
+
+    dataset = load_dataset("izhx/google-code-jam", split="all")
+
+    print(f"[INFO] Dataset size: {len(dataset)}")
+
+    # group solutions by problem
+    problem_map = {}
+
+    for row in dataset:
+        pid = row["problem"]
+        code = row["code"]
+
+        if pid not in problem_map:
+            problem_map[pid] = []
+
+        problem_map[pid].append(code)
+
+    problems = list(problem_map.keys())
+
+    # generate pairs
+    for _ in range(NUM_PAIRS):
+
+        if random.random() < 0.5:
+
+            # clone pair
+            p = random.choice(problems)
+
+            if len(problem_map[p]) < 2:
+                continue
+
+            code1, code2 = random.sample(problem_map[p], 2)
+
+            label = 1
+
+        else:
+
+            # non clone pair
+            p1, p2 = random.sample(problems, 2)
+
+            code1 = random.choice(problem_map[p1])
+            code2 = random.choice(problem_map[p2])
+
+            label = 0
+
+        pairs.append({
+            "code1": code1,
+            "code2": code2,
+            "label": label
+        })
+
+
+print(f"[INFO] Generated {len(pairs)} pairs")
+
+
+########################################
+# BENCHMARK
+########################################
 
 y_true = []
 y_pred = []
-
-print("Running benchmark...")
 
 batch_prompts = []
 batch_labels = []
 
 pair_idx = 1
 
-for example in data_subset:
+for example in tqdm(pairs):
 
-    prompt = build_prompt(example["func1"], example["func2"])
+    prompt = build_prompt(example["code1"], example["code2"])
 
     batch_prompts.append(prompt)
     batch_labels.append(example["label"])
@@ -126,6 +198,7 @@ for example in data_subset:
         for p, t in zip(preds, batch_labels):
             y_pred.append(p)
             y_true.append(t)
+
             print(f"Pair {pair_idx}: Prediction={p}  True={t}")
             pair_idx += 1
 
@@ -133,14 +206,18 @@ for example in data_subset:
         batch_labels = []
 
 
-# run remaining
 if batch_prompts:
+
     preds = predict_batch(batch_prompts)
+
     for p, t in zip(preds, batch_labels):
         y_pred.append(p)
         y_true.append(t)
-        print(f"Prediction={p}  True={t}")
 
+
+########################################
+# RESULTS
+########################################
 
 print("\nBenchmark Results")
 
