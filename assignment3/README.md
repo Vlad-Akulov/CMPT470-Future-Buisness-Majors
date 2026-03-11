@@ -34,4 +34,25 @@
 | [Hyclone](https://arxiv.org/abs/2508.01357)| 
 | [StarChat](https://huggingface.co/HuggingFaceH4/starchat-beta)| 
 | [XCode](https://dl.acm.org/doi/pdf/10.1145/3506696)| 
-| [Zhao](https://arxiv.org/abs/2502.19219)| 
+| [Zhao](https://arxiv.org/abs/2502.19219)|
+
+---
+
+##### Team Name: Future Business Majors
+##### Milestone: Reproducibility Assessment of Code Clone Detection Tools
+|Name|Contribution (%)|      
+|:-----------------------:|:---:|
+|Kylen Morris|17.5|
+|Darian Rowat|25|
+|Rylan Curtis|17.5|
+|Vlad Akulov|20| 
+|Kyran McKnight-Woods|20|
+
+Usage of AI Tools by each member:
+|Name|Contribution (%)|      
+|:-----------------------:|:---:|
+|Kylen Morris|No AI used.|
+|Darian Rowat|Once prompted ChatGPT to find tool source code. It did not work.|
+|Rylan Curtis|No AI used.|
+|Vlad Akulov|Wrote shell script for Agec.| 
+|Kyran McKnight-Woods|Wrote Python script for LLM smoketesting.|
