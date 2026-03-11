@@ -65,31 +65,31 @@ This function takes two arguments, `a` and `b`,
 
 ### Result Assessment
 
-    Since the original paper never tried code clone detection we're unable to compare results with the original benchmark.
+Since the original paper never tried code clone detection we're unable to compare results with the original benchmark.
 
-    The results for BigCloneBench are shown below:
+The results for BigCloneBench are shown below:
 
 For 500 pairs:
 Accuracy : 0.726
 Precision : 0.181818
 Recall : 0.24324
 
-    From these results we can see decent accuracy however you'll notice the precision and recall are very low. This is because the BigCloneBench dataset has many more False clones then True clones. The model generally preferred to answer False which created the ok accuracy score. However this also resulted in many false negatives which lowered the overall performance.
+From these results we can see decent accuracy however you'll notice the precision and recall are very low. This is because the BigCloneBench dataset has many more False clones then True clones. The model generally preferred to answer False which created the ok accuracy score. However this also resulted in many false negatives which lowered the overall performance.
 
-    The results for GPTCloneBench are shown below:
+The results for GPTCloneBench are shown below:
 
 For 500 pairs:
 Accuracy : 0.142
 Precision : 1.0
 Recall : 0.142
 
-    As mentioned earlier, the GPTCloneBench only provided true pairs. This means that there were 0 false negatives which resulted in the perfect percision. The model only predicted 14.2% of the code pairs correclty which is very bad.
+As mentioned earlier, the GPTCloneBench only provided true pairs. This means that there were 0 false negatives which resulted in the perfect percision. The model only predicted 14.2% of the code pairs correclty which is very bad.
 
 ---
 
 ### TES Grade
 
-    Based on the very unimpressive results, I'm inclined to give this tool a TES-E grade, meaning that the tool was executable with divergent results. However, since the tool was never designed to be a clone detection tool and the paper never benchmarks it for that, I'll give this tool a TES grade of TES-A because it worked as expected and created a baseline for clone detection.
+Based on the very unimpressive results, I'm inclined to give this tool a TES-E grade, meaning that the tool was executable with divergent results. However, since the tool was never designed to be a clone detection tool and the paper never benchmarks it for that, I'll give this tool a TES grade of TES-A because it worked as expected and created a baseline for clone detection.
 
 
 ---
