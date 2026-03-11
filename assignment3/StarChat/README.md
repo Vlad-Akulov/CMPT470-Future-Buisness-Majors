@@ -25,6 +25,8 @@ Authors: Raymond Li et al.
 - datasets for the load_dataset tool in order to access the BigCloneBench from google/code_x_glue_cc_clone_detection_big_clone_bench"
 - random to randomly select a portion of the dataset
 - This environment setup worked immidiately without any extra steps
+- bench_gpt.py was used to run the GPTCloneBench with python3
+- bench_big.py was used to run the BigCloneBench with python3 as well
 
 ---
 
@@ -63,12 +65,6 @@ This function takes two arguments, `a` and `b`,
 - Also tried GPTCloneBench to test multiple languages and semantic clones with 500 random pairs
     - Note: GPTCloneBench provided only true clones which resulted in 0 false positives.
 
----
-
-### Result Assessment
-
-Since the original paper never tried code clone detection we're unable to compare results with the original benchmark.
-
 After trying many different prompt styles I found the best results were from a short, simple prompt. The prompt that yeilded the best result is as follows:
 
 ```
@@ -87,20 +83,6 @@ Program B:
 
 Answer:
 ```
-
-I also forced the output from the model to 3 tokens in order to force a YES or NO answer and I verified that each answer was in that format before parsing to read and store the result in a JSON file.
-
-The results for BigCloneBench are shown below:
-
-For 500 pairs:
-
-Accuracy : 0.726
-
-Precision : 0.181818
-
-Recall : 0.24324
-
-From these results we can see decent accuracy however you'll notice the precision and recall are very low. This is because the BigCloneBench dataset has many more False clones then True clones. The model generally preferred to answer False which created the ok accuracy score. However this also resulted in many false negatives which lowered the overall performance.
 
 Similar to the BigCloneBench we used a simple prompt here as well. The only difference is not specifying the language of the functions. Here is the prompt for this dataset:
 
@@ -121,7 +103,25 @@ Program B:
 Answer:
 ```
 
-I again forced the output from the model to 3 tokens in order to force a YES or NO answer and I verified that each answer was in that format before parsing to read and store the result in a JSON file.
+I also forced the output from the model to 3 tokens in order to force a YES or NO answer and I verified that each answer was in that format before parsing to read and store the result in a JSON file.
+
+---
+
+### Result Assessment
+
+Since the original paper never tried code clone detection we're unable to compare results with the original benchmark.
+
+The results for BigCloneBench are shown below:
+
+For 500 pairs:
+
+Accuracy : 0.726
+
+Precision : 0.181818
+
+Recall : 0.24324
+
+From these results we can see decent accuracy however you'll notice the precision and recall are very low. This is because the BigCloneBench dataset has many more False clones then True clones. The model generally preferred to answer False which created the ok accuracy score. However this also resulted in many false negatives which lowered the overall performance.
 
 The results for GPTCloneBench are shown below:
 
