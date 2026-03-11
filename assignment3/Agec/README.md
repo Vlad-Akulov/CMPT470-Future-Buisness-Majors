@@ -213,7 +213,7 @@ CLONE TYPE: Semantic Code-Clone detection for Java so we would be using Semantic
 
 ### Result Assessment
 
-The paper did not provide any precision/recall metrics which is fine since this is a semantic tool and typically dosent have objective precision/recall metrics.
+The paper did not provide any precision/recall metrics so theres nothing to compare to.
 
 The sample workflow is executable on Debian with Python 2.7.18.
 
