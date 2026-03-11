@@ -13,7 +13,7 @@ XCode: Towards Cross-Language Code Representation with Large-Scale PreTraining
 Artifact search was not successful. 
 
 Original link is "Source code available at `https://1drv.ms/u/s!AjA1nukw8Z0WlsNNHPvNhMFTzV-Sgg?e=pDSMDt` which is now expired ("Something went wrong").
-A search with ChatGPT also found no working links, and the [Wayback Machine](https://web.archive.org/) is not valid for OneDrive downloads.
+A search with ChatGPT, prompted with "Find me the source for for this article: https://dl.acm.org/doi/epdf/10.1145/3506696"  also found no working links, and the [Wayback Machine](https://web.archive.org/) is not valid for OneDrive downloads.
 - Googling "source code" followed by the dead OneDrive link only resulted in links to the original article.
 
 Original recall and precision is mentioned in the original paper: 
@@ -36,14 +36,14 @@ Original recall and precision is mentioned in the original paper:
 - [Believed ResearchGate Page](https://www.researchgate.net/scientific-contributions/Guodong-Li-2065973697)
   - *Note: There is no mention of XCode on here*
 - [GitHub Account](https://github.com/doragd)
-  - No mention of Xcode in starred repositories or users repositories.
+  - No mention of XCode in starred repositories or users repositories.
   - Could not seem to find other authors GitHub's accounts in users following/followed sections.
 - [GitHub Pages](https://doragd.github.io/)
 - [Zhihu Page](https://www.zhihu.com/people/gordon-lee)
 
 <u>__Jingfeng Zhang (Zjejiang University):__</u>
 - [False GitHub Page](https://zjfheart.github.io/)
-  - GitHub website belonging to another person named Jingfeng Zhang who studies computer science, no mention of Xcode in publications or "Zjiejang University" in "Education and Experiences"
+  - GitHub website belonging to another person named Jingfeng Zhang who studies computer science, no mention of XCode in publications or "Zjiejang University" in "Education and Experiences"
 - [Google Scholar Page](https://scholar.google.com/citations?user=XxvGUjkAAAAJ&hl=zh-CN)
   - Google Scholar page page belonging to the correct author. XCode mentioned but redirection link is found to article mentioned at top.
 
@@ -55,10 +55,10 @@ Original recall and precision is mentioned in the original paper:
 <u>__Xiangji Zeng (Zjiejiang University):__</u>
 - [Google Scholar Page](https://scholar.google.no/citations?user=680xDzoAAAAJ&hl=sv)
 - [GitHub](https://github.com/xijiz?tab=repositories)
-  - No mention of Xcode in starred repositories or users repositories.
+  - No mention of XCode in starred repositories or users repositories.
   - Could not seem to find other authors GitHub's accounts in users following/followed sections.
 - [GitHub Pages](https://xijiz.github.io/)
-  - Blog posts are from prior to Xcode article
+  - Blog posts are from prior to XCode article
 
 <u>__Yin Zhang (Zjejiang University):__</u>
 - [Google Scholar Page](https://scholar.google.com/citations?user=vCoh6tYAAAAJ&hl=en)
@@ -69,7 +69,7 @@ Original recall and precision is mentioned in the original paper:
 - [Google Scholar Page](https://scholar.google.com/citations?user=c3MtqtMAAAAJ&hl=en)
 - [Personal Website](http://wanyao.me/)
 - [GitHub](https://github.com/wanyao1992)
-  - No mention of Xcode in starred repositories or users repositories.
+  - No mention of XCode in starred repositories or users repositories.
   - Could not seem to find other authors GitHub's accounts in users following/followed sections.
 
 ### <u>**[Articles Citing XCode:](https://scholar.google.com/scholar?start=0&hl=en&as_sdt=2005&cites=12902877604779251287&scipsc=)**</u>
@@ -81,7 +81,7 @@ Original recall and precision is mentioned in the original paper:
 
 <u>**GitHub and GitLab**</u>
 __GitLab:__ All queries for Xcode result in the [Apple tool](https://developer.apple.com/xcode/), nothing regarding the tool for code clone detection.
-__GitHub:__ Querying just "Xcode" results in 39.2k repositories, but all of these seem to be relating to the Apple tool previously mentioned.
+__GitHub:__ Querying just "XCode" results in 39.2k repositories, but all of these seem to be relating to the Apple tool previously mentioned.
 - Querying "xcode code clone" results in 16 repositories. One repository titled "[Xcode_tool](https://github.com/tangqiaoboy/Xcode_tool)" was found, but again, this is for the Apple tool.
 ---
 

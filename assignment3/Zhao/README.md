@@ -17,7 +17,7 @@ When searching on the [Wayback Machine](https://web.archive.org/), the only inde
 The wayback machine does show a redirect to: 
 https://anonymous.4open.science/api/repo/ECScan/file/
 
-Which then returns "This page is unavailable for archiving. The server returned code: because access requires authorization".
+Which then returns `This page is unavailable for archiving. The server returned code: because access requires authorization`.
 
 `"ECScan" site:github.com` and `"Essense Clone Scanner" site:github.com` were searched, but there were no results that matched our given tool, nor any third party reuploads.
 
