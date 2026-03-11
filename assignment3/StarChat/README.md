@@ -2,7 +2,9 @@
 
 ---
 
-StarChat-B-16B: A Large Language Model developed for coding help.
+StarChat-B-16B: A Large Language Model developed for coding help. 
+[Article Here](https://drive.google.com/file/d/1cN-b9GnWtHzQRoE7M7gAEyivY0kl4BYs/view)
+Authors: Raymond Li et al.
 
 ---
 
