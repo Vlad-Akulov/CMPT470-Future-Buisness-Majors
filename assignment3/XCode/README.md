@@ -84,6 +84,7 @@ __GitLab:__ All queries for Xcode result in the [Apple tool](https://developer.a
 __GitHub:__ Querying just "Xcode" results in 39.2k repositories, but all of these seem to be relating to the Apple tool previously mentioned.
 - Querying "xcode code clone" results in 16 repositories. One repository titled "[Xcode_tool](https://github.com/tangqiaoboy/Xcode_tool)" was found, but again, this is for the Apple tool.
 ---
+
 End of reasonable and good-faith search. Tool will now be classified as **TES-D (Non-Executable)**.
 
 ---
