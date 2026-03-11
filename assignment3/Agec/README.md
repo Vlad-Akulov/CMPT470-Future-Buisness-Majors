@@ -17,7 +17,9 @@ Agec: An execution-semantic clone detection tool [Article here](https://ieeexplo
     - Following the link on 2026-02-02 shows a broken page dead end
 3. Google Search for the github page 
     - We see a hit under the same authors name seems they created a seperate account named tos-kamiyalagec to host the application untill they archived it on 2018-03-07 https://github.com/tos-kamiya/agec
-    - There seems to be an update to the code and the repo seems to have moved to https://github.com/tos-kamiya/agec2/ but the only fixes seem to be documentation and semantic so we will proceed with the original repo
+    - There seems to be an update to the code and the repo seems to have moved to https://github.com/tos-kamiya/agec2/ but the only fixes seem to be documentation and semantic 
+
+**Artifact Found:** [HERE](https://github.com/tos-kamiya/agec2/)
 
 ---
 
