@@ -42,14 +42,14 @@
 ##### Milestone: Reproducibility Assessment of Code Clone Detection Tools
 |Name|Contribution (%)|      
 |:-----------------------:|:---:|
-|Kylen Morris|17.5|
+|Kylen Morris|15|
 |Darian Rowat|25|
-|Rylan Curtis|17.5|
-|Vlad Akulov|20| 
-|Kyran McKnight-Woods|20|
+|Rylan Curtis|15|
+|Vlad Akulov|22.5| 
+|Kyran McKnight-Woods|22.5|
 
 Usage of AI Tools by each member:
-|Name|Contribution (%)|      
+|Name|AI Usage|      
 |:-----------------------:|:---:|
 |Kylen Morris|No AI used.|
 |Darian Rowat|Once prompted ChatGPT to find tool source code. It did not work.|
