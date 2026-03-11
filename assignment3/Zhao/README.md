@@ -23,38 +23,38 @@ Which then returns "This page is unavailable for archiving. The server returned 
 
 The names of the researchers were searched into Github and Google:
 
-**Author search:**
-__Lida Zhao:__
+### <u>**Author search:**</u>
+<u>__Lida Zhao:__</u>
 - no repositories or source code accounts found at all.
 
-__Shihan Dou:__
+<u>__Shihan Dou:__</u>
 - [GitHub](https://github.com/Ablustrund) account was found, but no commit history related to ECScan, private repository commits exist which could be related, but is only speculation.
 
-__Yutao Hu:__
+<u>__Yutao Hu:__</u>
 - [GitHub](https://github.com/toggle1995) account was found, but no commit history or repositories related to ECScan.
 
-__Yueming Wu:__
+<u>__Yueming Wu:__</u>
 - [GitHub](https://github.com/wu-yueming) account and personal page found, no commit history or mention of ECScan paper.
 
-__Jiahui Wu:__
+<u>__Jiahui Wu:__</u>
 - [Potential GitHub](https://github.com/JiahuiWu2022) account found, no commit history regarding ECScan.
 
-__Chengwei Liu:__
+<u>__Chengwei Liu:__</u>
 - [Potential GitHub](https://github.com/ChengWeiLiu0131) account found, no commit history regarding ECScan.
 
-__Lyuye Zhang:__
+<u>__Lyuye Zhang:__</u>
 - Two GitHub accounts found ([[1]](https://github.com/lyuyezhang) & [[2]](https://github.com/zly1239870)), one public and one speculative and private, no public commit history regarding ECScan.
 
-__Yi Liu:__
+<u>__Yi Liu:__</u>
 - No GitHub account found.
 
-__Jun Sun:__
+<u>__Jun Sun:__</u>
 - No GitHub account found, [personal site located](https://sunjun.site/publications/) but no links to code.
 
-__Xuanjing Huang:__
+<u>__Xuanjing Huang:__</u>
 - [GitHub](https://github.com/xuanjing-huang) account found, no commit history regarding ECScan.
 
-__Yang Liu:__
+<u>__Yang Liu:__</u>
 - [Personal website](https://personal.ntu.edu.sg/yangliu/) found (https://personal.ntu.edu.sg/yangliu/), no links to any code or repos regarding ECScan.
 ---
 - Given these results, we have concluded that this tool is not available for public use, and likely never was. 
