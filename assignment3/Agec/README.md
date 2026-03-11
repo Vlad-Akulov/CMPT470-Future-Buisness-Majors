@@ -148,7 +148,7 @@ pyenv local 2.7.18
 
 16. Run the gen_ngram.py file 
 ```
-python gen_ngram.py -a disam > ngrams.txt
+python gen_ngram.py -a disasm > ngrams.txt
 ```
 
 17. Run det clone this time runs without issue 
@@ -163,8 +163,43 @@ mmd_clone.py clone-indices-md.txt > clone-indices.txt
 
 19. Run tosl_clone as specified in the repo 
 ```
-tosl_clone.py -a disam clone-indices.txt > clone-linenums.txt
+tosl_clone.py -a disasm clone-indices.txt > clone-linenums.txt
 ```
+
+20. At this point the sample pipeline is running, so to reproduce the paper result we need to target the same product version from the paper.
+
+21. The correct version in the paper is **ArgoUML 0.28.1**.  
+
+22. Pull ArgoUML 0.28.1 and unzip it into `assignment3/Agec`.
+    - Go to this link to downalod ArgoUML-0.28.1.zip unzip the whole folder into Agec:
+      `https://github.com/argouml-tigris-org/argouml/releases/tag/VERSION_0_28_1`
+
+
+23. Run the run_table1_metrics.sh script that will automatically do what we jsut did with the example but this time with argouml 
+
+```
+assignment3/Agec/run_table1_metrics.sh \
+  --jar ./Assignment3/Agec/ArgoUML-0.28.1/argouml-0.28.1/argouml.jar \
+  --python ~/.pyenv/versions/2.7.18/bin/python
+```
+
+24. Having run the steps on argouml disasembly seems to be faster than what was specified in table 2 in the research paper which is inline since my processor the 11400f is faster than the specified xeon processor. Howerver as soon as we get into the get_ngrams tool it seems to be running much slower than specified inside of the paper and seems to hang at aroung artificat 2700 being left on overnight to ensure it was stuck  
+```
+> 2026-03-09 23:59:43 (2657-2665 of 8888) org/argouml/ui/PerspectiveSupport
+> 2026-03-09 23:59:43 (2666-2670 of 8888) org/argouml/ui/PredicateMType
+> 2026-03-09 23:59:43 (2671-2680 of 8888) org/argouml/ui/ProgressMonitorWindow
+> 2026-03-09 23:59:43 (2681-2681 of 8888) org/argouml/ui/ProgressMonitorWindow$1
+> 2026-03-09 23:59:43 (2682-2682 of 8888) org/argouml/ui/ProgressMonitorWindow$2
+> 2026-03-09 23:59:43 (2683-2683 of 8888) org/argouml/ui/ProgressMonitorWindow$3
+> 2026-03-09 23:59:43 (2684-2694 of 8888) org/argouml/ui/ProjectActions
+> 2026-03-09 23:59:54 (2695-2695 of 8888) org/argouml/ui/ProjectActions$1
+> 2026-03-09 23:59:54 (2696-2753 of 8888) org/argouml/ui/ProjectBrowser
+```
+
+25. Since this tool spits out ngrams it cannot be directly benchmarked against any of the provided benchmarks without some significant modification to fit the tool to the benchmark. Due to our hang here we are giving this tool a TES-C
+
+
+
 
 ---
 
@@ -180,8 +215,7 @@ CLONE TYPE: Semantic Code-Clone detection for Java so we would be using Semantic
 
 The paper did not provide any precision/recall metrics which is fine since this is a semantic tool and typically dosent have objective precision/recall metrics.
 
-Unfortunately since we could not get the tool working we cannot comment on the results.
-
+The sample workflow is executable on Debian with Python 2.7.18.
 
 | TES Grade | Description |
 |---|---|
