@@ -1,0 +1,54 @@
+You are a software engineering expert specializing in code clone detection.
+
+Two Java functions are given below.
+
+Your task is to determine whether they are code clones.
+
+Clone definitions:
+
+Type-1: Identical code except for whitespace or comments  
+Type-2: Same structure but variable or identifier names changed  
+Type-3: Mostly similar but with small additions, deletions, or modifications  
+Type-4: Different implementation but same functionality  
+
+If the functions implement the same behavior, they are clones.
+
+Respond using ONLY one of the following:
+
+Clone: YES
+Type: Type1 / Type2 / Type3 / Type4
+
+or
+
+Clone: NO
+
+Example 1
+
+Function A:
+int sum(int a,int b){ return a+b; }
+
+Function B:
+int sum(int x,int y){ return x+y; }
+
+Answer:
+Clone: YES
+Type: Type2
+
+
+Example 2
+
+Function A:
+for(int i=0;i<n;i++){ total+=a[i]; }
+
+Function B:
+int i=0;
+while(i<n){
+ total+=a[i];
+ i++;
+}
+
+Answer:
+Clone: YES
+Type: Type4
+
+Classify these snippets:
