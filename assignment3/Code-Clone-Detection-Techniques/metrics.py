@@ -8,8 +8,8 @@ FILE = "results.xlsx"
 df = pd.read_excel(FILE)
 
 # first column = expected, second = predicted
-y_true = df.iloc[:,0].str.upper().str.strip()
-y_pred = df.iloc[:,1].str.upper().str.strip()
+y_true = df.iloc[1:,0].str.upper().str.strip()
+y_pred = df.iloc[1:,1].str.upper().str.strip()
 
 # convert YES/NO → 1/0
 y_true = y_true.map({"YES":1, "NO":0})
