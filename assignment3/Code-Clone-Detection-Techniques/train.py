@@ -1,7 +1,7 @@
 import random
 from datasets import load_dataset
 
-NUM_PAIRS = 20
+NUM_PAIRS = 30  # must be even
 
 def build_prompt(code1, code2):
     return f"""
@@ -30,10 +30,24 @@ dataset = load_dataset(
 
 print(f"[INFO] Dataset size: {len(dataset)}")
 
-indices = random.sample(range(len(dataset)), NUM_PAIRS)
-subset = [dataset[i] for i in indices]
+# split into YES (1) and NO (0)
+clones = [x for x in dataset if x["label"] == 1]
+non_clones = [x for x in dataset if x["label"] == 0]
 
-print(f"[INFO] Sampled {NUM_PAIRS} pairs\n")
+print(f"[INFO] Total clones: {len(clones)}")
+print(f"[INFO] Total non-clones: {len(non_clones)}")
+
+half = NUM_PAIRS // 2
+
+# sample equally
+sampled_clones = random.sample(clones, half)
+sampled_non_clones = random.sample(non_clones, half)
+
+# combine and shuffle
+subset = sampled_clones + sampled_non_clones
+# random.shuffle(subset)
+
+print(f"[INFO] Sampled {half} YES and {half} NO pairs\n")
 
 pair_idx = 1
 
