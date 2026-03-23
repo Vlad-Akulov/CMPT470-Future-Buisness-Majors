@@ -1,0 +1,3 @@
+[submodule "assignment4/vavr"]
+	path = assignment4/vavr
+	url = https://github.com/vavr-io/vavr
