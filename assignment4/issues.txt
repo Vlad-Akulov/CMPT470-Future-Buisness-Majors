@@ -1,0 +1,25 @@
+15387/15387 [########################################################################] 100% 3min24s
+
+vavr/src/main/java/io/vavr/concurrent/FutureImpl.java:235: warning: Thread Safety Violation
+  Read/Write race. Non-private method `FutureImpl$1.block()` reads without synchronization from `this.threadEnqueued`, which races with the write in method `FutureImpl$1.block()`.
+ Reporting because this access may occur on a background thread. 
+  233.                   public boolean block() {
+  234.                       try {
+  235. >                         if (!threadEnqueued) {
+  236.                               lock.lock();
+  237.                               try {
+
+vavr/src/main/java/io/vavr/concurrent/FutureImpl.java:242: warning: Thread Safety Violation
+  Unprotected write. Non-private method `FutureImpl$1.block()` writes to field `this.threadEnqueued` outside of synchronization.  
+ Reporting because this access may occur on a background thread. 
+  240.                                   lock.unlock();
+  241.                               }
+  242. >                             threadEnqueued = true;
+  243.                           }
+  244.                           if (timeout > -1) {
+
+
+Found 2 issues
+                        Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation(THREAD_SAFETY_VIOLATION): 2
+a@DESKTOP-Q87CVUH:/mnt/c/Users/gostg/Documents/vscode/470/CMPT470-Future-Buisness-Majors/assignment4/vavr$ 
